@@ -10,6 +10,10 @@ import com.douzone.springcontainer.user.User;
 import com.douzone.springcontainer.videosystem.DVDPlayer;
 import com.douzone.springcontainer.videosystem.DigitalVideoDisc;
 
+import config.mixing.videosystem.DVDPlayerConfig;
+import config.mixing.videosystem.VideoSystemConfig01;
+import config.mixing.videosystem.VideoSystemConfig02;
+import config.mixing.videosystem.VideoSystemConfig03;
 import config.user.AppConfig01;
 
 public class JavaConfigTest {
@@ -18,7 +22,11 @@ public class JavaConfigTest {
 		// testJavaConfig01();
 		// testJavaConfig02();
 		// testJavaConfig03();
-		testJavaConfig04();
+		// testJavaConfig04();
+		// testJavaConfig05();
+		// testJavaConfig06();
+		// testJavaConfig07();
+		testJavaConfig08();
 	}
 
 	// Java Config 01
@@ -85,5 +93,49 @@ public class JavaConfigTest {
 		
 		((ConfigurableApplicationContext)appCtx).close();
 		
+	}
+	
+	// Java Config 05 - Mixing 01
+	// Java Config(Player 설정) <- Java Config (DVD 설정)
+	public static void testJavaConfig05() {
+		ApplicationContext appCtx = 
+				new AnnotationConfigApplicationContext(DVDPlayerConfig.class);
+		DVDPlayer dvdPlayer = appCtx.getBean(DVDPlayer.class);
+		dvdPlayer.play();
+		
+		((ConfigurableApplicationContext)appCtx).close();
+	}
+	
+	// Java Config 05 - Mixing 02
+	// Java Config(새로운 설정) <- Java Config(DVD 설정) + Java Config(Player 설정)
+	public static void testJavaConfig06() {
+		ApplicationContext appCtx = 
+				new AnnotationConfigApplicationContext(VideoSystemConfig01.class);
+		DVDPlayer dvdPlayer = appCtx.getBean(DVDPlayer.class);
+		dvdPlayer.play();
+		
+		((ConfigurableApplicationContext)appCtx).close();
+	}
+	
+	// Java Config 05 - Mixing 03
+	// Java Config(새로운 설정) <- Java Config + XML Config
+	public static void testJavaConfig07() {
+		ApplicationContext appCtx = 
+				new AnnotationConfigApplicationContext(VideoSystemConfig02.class);
+		DVDPlayer dvdPlayer = appCtx.getBean(DVDPlayer.class);
+		dvdPlayer.play();
+		
+		((ConfigurableApplicationContext)appCtx).close();
+	}
+	
+	// Java Config 05 - Mixing 04
+	// Java Config(새로운 설정) <- XML Config
+	public static void testJavaConfig08() {
+		ApplicationContext appCtx = 
+				new AnnotationConfigApplicationContext(VideoSystemConfig03.class);
+		DVDPlayer dvdPlayer = appCtx.getBean(DVDPlayer.class);
+		dvdPlayer.play();
+		
+		((ConfigurableApplicationContext)appCtx).close();
 	}
 }

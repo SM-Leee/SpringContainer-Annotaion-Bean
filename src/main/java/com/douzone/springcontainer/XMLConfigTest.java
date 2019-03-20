@@ -40,7 +40,7 @@ public class XMLConfigTest {
 	// Bean Config
 	public static void testXMLConfig02() {
 		ApplicationContext appCtx = 
-				new ClassPathXmlApplicationContext("config/videosystem/DVDPlayerConfig.xml");
+				new ClassPathXmlApplicationContext("config/videosystem/VideoSystemConfig.xml");
 		// 01. 간단한 Bean 설정
 		DigitalVideoDisc dvd = appCtx.getBean(Avengers.class);
 		System.out.println(dvd);
